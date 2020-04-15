@@ -1,0 +1,32 @@
+{
+    "name": "inspiredminds/magento-belboon-tracking",
+    "description": "Integrates Belboon affiliate tracking in Magento 2.",
+    "keywords": ["affiliate", "tracking"],
+    "type": "magento2-module",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Fritz Michael Gschwantner",
+            "email": "fmg@inspiredminds.at"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/inspiredminds/magento-belboon-tracking/issues",
+        "source": "https://github.com/inspiredminds/magento-belboon-tracking"
+    },
+    "require": {
+        "php": ">=7.1",
+        "magento/framework": ">=101.0.6",
+        "magento/module-store": ">=100.2.5",
+        "magento/module-sales": ">=101.0.5",
+        "guzzlehttp/guzzle": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "InspiredMinds\\BelboonTracking\\": "src/"
+        },
+        "files": [
+            "src/registration.php"
+        ]
+    }
+}

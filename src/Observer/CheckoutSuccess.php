@@ -45,16 +45,19 @@ class CheckoutSuccess implements \Magento\Framework\Event\ObserverInterface
                     throw new \RuntimeException('Tracking enabled, but no domain or program ID defined.');
                 }
 
-                $trackingUrl = sprintf(
-                    'https://%s/ts/%s/tsa?typ=s&tst=%s&trc=default&ctg=Request&sid=&cid=%s&orv=%s&cli=%s&orc=%s',
-                    $domain,
-                    $programId,
-                    $timestamp,
-                    $order->getRealOrderId(),
-                    $order->getGrandTotal(),
-                    $clickId,
-                    $order->getOrderCurrencyCode()
-                );
+                $queryParameter = http_build_query([
+                    'typ' => 's',
+                    'tst' => $timestamp,
+                    'trc' => 'default',
+                    'ctg' => 'sale',
+                    'sid' => 'checkout',
+                    'cid' => $order->getRealOrderId(),
+                    'orv' => $order->getGrandTotal(),
+                    'cli' => $clickId,
+                    'orc' => $order->getOrderCurrencyCode(),
+                ]);
+
+                $trackingUrl = 'https://'.$domain.'/'.$programId.'/tsa?'.$queryParameter;
 
                 $this->logger->debug('Belboon Tracking: '.$trackingUrl);
 

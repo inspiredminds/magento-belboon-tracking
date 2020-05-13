@@ -57,9 +57,9 @@ class CheckoutSuccess implements \Magento\Framework\Event\ObserverInterface
                     'orc' => $order->getOrderCurrencyCode(),
                 ]);
 
-                $trackingUrl = 'https://'.$domain.'/'.$programId.'/tsa?'.$queryParameter;
+                $trackingUrl = 'https://'.$domain.'/ts/'.$programId.'/tsa?'.$queryParameter;
 
-                $this->logger->debug('Belboon Tracking: '.$trackingUrl);
+                $this->logger->info('Belboon Tracking: '.$trackingUrl);
 
                 (new \GuzzleHttp\Client())->get($trackingUrl);
             }

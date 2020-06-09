@@ -15,16 +15,13 @@ namespace InspiredMinds\BelboonTracking\Observer;
 class CheckoutSuccess implements \Magento\Framework\Event\ObserverInterface
 {
     private $trackingHelper;
-    private $orderRepository;
     private $logger;
 
     public function __construct(
         \InspiredMinds\BelboonTracking\Helper\BelboonTrackingHelper $trackingHelper,
-        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->trackingHelper = $trackingHelper;
-        $this->orderRepository = $orderRepository;
         $this->logger = $logger;
     }
 
@@ -34,9 +31,8 @@ class CheckoutSuccess implements \Magento\Framework\Event\ObserverInterface
             if ($this->trackingHelper->isEnabled() && null !== ($clickId = $this->trackingHelper->getClickId())) {
                 $this->trackingHelper->removeClickId();
 
-                $orderId = $observer->getEvent()->getOrderIds()[0];
                 /** @var \Magento\Sales\Model\Order $order */
-                $order = $this->orderRepository->get($orderId);
+                $order = $observer->getEvent()->getOrder();
                 $domain = $this->trackingHelper->getDomain();
                 $programId = $this->trackingHelper->getProgramId();
                 $timestamp = $order->getUpdatedAt() ? strtotime($order->getUpdatedAt()) : time();
@@ -61,7 +57,9 @@ class CheckoutSuccess implements \Magento\Framework\Event\ObserverInterface
 
                 $this->logger->info('Belboon Tracking: '.$trackingUrl);
 
-                (new \GuzzleHttp\Client())->get($trackingUrl);
+                $response = (new \GuzzleHttp\Client())->get($trackingUrl);
+
+                $this->logger->debug('Belboon Tracking: '.$response->getBody());
             }
         } catch (\Exception $e) {
             $this->logger->error('Belboon Tracking: '.$e->getMessage());

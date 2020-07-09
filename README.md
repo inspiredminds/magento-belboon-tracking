@@ -1,4 +1,3 @@
-[![](https://img.shields.io/maintenance/yes/2020.svg)](https://github.com/inspiredminds/magento-belboon-tracking)
 [![](https://img.shields.io/packagist/v/inspiredminds/magento-belboon-tracking.svg)](https://packagist.org/packages/inspiredminds/magento-belboon-tracking)
 [![](https://img.shields.io/packagist/dt/inspiredminds/magento-belboon-tracking.svg)](https://packagist.org/packages/inspiredminds/magento-belboon-tracking)
 

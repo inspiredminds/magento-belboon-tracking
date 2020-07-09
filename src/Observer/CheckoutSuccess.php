@@ -59,7 +59,9 @@ class CheckoutSuccess implements \Magento\Framework\Event\ObserverInterface
 
                 $response = (new \GuzzleHttp\Client())->get($trackingUrl);
 
-                $this->logger->debug('Belboon Tracking: '.$response->getBody());
+                $this->logger->debug('Belboon Tracking Response Status: '.$response->getStatusCode());
+                $this->logger->debug('Belboon Tracking Response Header: '.json_encode($response->getHeaders()));
+                $this->logger->debug('Belboon Tracking Response Body: '.$response->getBody());
             }
         } catch (\Exception $e) {
             $this->logger->error('Belboon Tracking: '.$e->getMessage());

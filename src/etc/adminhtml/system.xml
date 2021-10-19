@@ -5,7 +5,7 @@
             <label>Belboon Tracking</label>
             <tab>sales</tab>
             <class>inspiredminds-belboontracking-tab</class>
-            <resource>InspiredMinds_StoreSwitcher::config</resource>
+            <resource>InspiredMinds_BelboonTracking::config</resource>
 
             <group id="general" translate="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
